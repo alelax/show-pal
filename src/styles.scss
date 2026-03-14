@@ -1,1 +1,53 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+html {
+  @include mat.theme(
+      (
+        color: (
+          primary: mat.$blue-palette,
+          tertiary: mat.$blue-palette,
+          theme: (
+            surface: #121620,
+            'on-surface': #e6e6e6,
+            'surface-container': #1a2030,
+            'surface-container-low': #151c28,
+            'surface-container-high': #202a3c,
+            'surface-container-highest': #263044,
+            'on-surface-variant': #a0a0a0,
+            outline: #3a4255,
+            'outline-variant': #2a3040,
+          ),
+        ),
+        typography: Roboto,
+        density: 0,
+      )
+  );
+}
+
+body {
+  // Default the application to a dark color theme. This can be changed to
+  // `light` to enable the light color theme, or to `light dark` to defer to the
+  // user's system settings.
+  color-scheme: dark;
+
+  // Set a default background, font and text colors for the application using
+  // Angular Material's system-level CSS variables. Learn more about these
+  // variables at https://material.angular.dev/guide/system-variables
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  display: flex;
+  justify-content: center;
+}
+
+app-root {
+  width: 100%;
+}

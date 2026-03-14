@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "npm-run-all --parallel start:frontend start:server",
+    "start:frontend": "ng serve",
+    "start:server": "ts-node server/server.mts",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -11,12 +13,18 @@
   "private": true,
   "packageManager": "npm@11.9.0",
   "dependencies": {
+    "@angular/cdk": "^21.2.2",
     "@angular/common": "^21.2.0",
     "@angular/compiler": "^21.2.0",
     "@angular/core": "^21.2.0",
     "@angular/forms": "^21.2.0",
+    "@angular/material": "^21.2.2",
     "@angular/platform-browser": "^21.2.0",
     "@angular/router": "^21.2.0",
+    "@hashbrownai/openai": "^0.4.1",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
@@ -24,7 +32,9 @@
     "@angular/build": "^21.2.2",
     "@angular/cli": "^21.2.2",
     "@angular/compiler-cli": "^21.2.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "^3.8.1",
+    "ts-node": "^10.9.2",
     "typescript": "~5.9.2"
   }
 }
