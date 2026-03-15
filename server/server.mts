@@ -10,13 +10,16 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env['PORT'] || 3000;
 
 app.post('/chat', async (req, res) => {
-  const stream = HashbrownOpenAI.stream({
-    apiKey: process.env.API_KEY,
-    request: req.body
-  })
+  const apiKey = process.env['OPEN_AI_KEY'];
+  if (!apiKey) return res.status(400).send('Invalid API Key');
+
+  const stream = HashbrownOpenAI.stream.text({
+    apiKey,
+    request: req.body,
+  });
 
   res.header('Content-Type', 'application/octet-stream');
 
@@ -24,7 +27,8 @@ app.post('/chat', async (req, res) => {
     res.write(chunk);
   }
 
-  res.end();
+  return res.end();
+
 })
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));

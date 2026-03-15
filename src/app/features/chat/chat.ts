@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 import { MatFabButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { chatResource, createTool } from '@hashbrownai/angular';
+import { MatCard, MatCardContent } from '@angular/material/card';
+import { firstValueFrom } from 'rxjs';
+import { ShowsLoaderService } from '../../core/shows-loader.service';
 
 @Component({
   selector: 'app-chat',
@@ -22,12 +26,64 @@ import { MatIcon } from '@angular/material/icon';
         <mat-icon>send</mat-icon>
       </button>
     </div>
+
+    <div class="chat-messages">
+      @for (message of chat.value(); track $index) {
+        @switch (message.role) {
+          @case ('user') {
+            <mat-card class="message user">
+              <mat-card-content>
+                <p>{{ message.content }}</p>
+              </mat-card-content>
+            </mat-card>
+          }
+          @case ('assistant') {
+            <div class="assistant-message-container">
+              <div class="assistant-avatar">
+                <mat-icon
+                  aria-hidden="false"
+                  aria-label="Assistant avatar"
+                  fontIcon="face_2"
+                ></mat-icon>
+              </div>
+              <mat-card class="message assistant">
+                <mat-card-content>
+                  <p>{{ message.content }}</p>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          }
+        }
+      }
+    </div>
   </div>`,
   styleUrl: './chat.scss',
-  imports: [MatFormField, MatLabel, MatInput, MatFabButton, MatIcon],
+  imports: [MatFormField, MatLabel, MatInput, MatFabButton, MatIcon, MatCard, MatCardContent],
 })
 export default class Chat {
+  #showsLoaderService = inject(ShowsLoaderService);
+
+  chat = chatResource({
+    model: 'gpt-4o',
+    system: 'You are a friendly chat bot',
+    tools: [
+      createTool({
+        name: 'getShows',
+        description: 'A tool to list available TV Shows. Call this tool whenever the user asks for shows',
+        handler: async () => firstValueFrom(this.#showsLoaderService.loadAll()),
+      }),
+    ],
+  });
+
+  #chatEffectRef = effect(() => {
+    console.log(this.chat.value());
+  });
+
   sendMessage(inputField: string) {
     console.log('sendMessage', inputField);
+    this.chat.sendMessage({
+      role: 'user',
+      content: inputField.trim(),
+    });
   }
 }
