@@ -16,7 +16,7 @@ export class ShowsLoaderService {
   }
 
   loadById(id: string) {
-    return this.#http.get<ShowModel[]>(`${environment.BACKEND_URL}/shows/${id}`);
+    return this.#http.get<ShowModel>(`${environment.BACKEND_URL}/shows/${id}`);
   }
 
   add(show: Omit<ShowModel, 'id'>) {

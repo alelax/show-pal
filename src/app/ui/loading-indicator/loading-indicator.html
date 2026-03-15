@@ -1,0 +1,68 @@
+<div class="wrap" aria-label="Loading..." role="status" aria-live="polite">
+  <div class="loader">
+    <svg
+      viewBox="0 -8 160 178"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      class="bot"
+    >
+      <!-- base shadow -->
+      <ellipse cx="80" cy="160" rx="36" ry="8" fill="#000" opacity=".22" />
+      <!-- antenna -->
+      <g class="antenna">
+        <line
+          x1="80"
+          y1="18"
+          x2="80"
+          y2="4"
+          stroke="var(--fg)"
+          stroke-width="6"
+          stroke-linecap="round"
+        />
+        <circle cx="80" cy="4" r="5" fill="var(--fg)" />
+      </g>
+      <!-- head -->
+      <rect
+        x="38"
+        y="24"
+        width="84"
+        height="80"
+        rx="20"
+        fill="var(--face)"
+        stroke="var(--ink)"
+        stroke-width="8"
+      />
+      <!-- eyes with animated pupils -->
+      <g transform="translate(60,64)">
+        <circle r="10" fill="#fff" opacity=".9" />
+        <circle class="pupil" r="5" fill="var(--fg)" />
+        <rect
+          class="lid"
+          x="-12"
+          y="-10"
+          width="24"
+          height="20"
+          rx="6"
+          fill="var(--face)"
+          opacity=".95"
+        />
+      </g>
+      <g transform="translate(100,64)">
+        <circle r="10" fill="#fff" opacity=".9" />
+        <circle class="pupil" r="5" fill="var(--fg)" />
+        <rect
+          class="lid"
+          x="-12"
+          y="-10"
+          width="24"
+          height="20"
+          rx="6"
+          fill="var(--face)"
+          opacity=".95"
+        />
+      </g>
+      <!-- subtle mouth track -->
+      <rect x="60" y="106" width="40" height="8" rx="4" fill="var(--track)" />
+    </svg>
+  </div>
+</div>
